@@ -1,4 +1,4 @@
-puts "The students of VIllains Academy"
+puts "The students of Villains Academy"
 puts "------------"
 puts "Dr. Hanibal Lecter"
 puts "Darth Vader"
@@ -11,3 +11,7 @@ puts "Freddy Krueger"
 puts "The Joker"
 puts "Joffery Baratheon"
 puts "Norman Bates"
+
+print "Overall, we have "
+print 11
+puts " great students"
