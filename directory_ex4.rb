@@ -22,7 +22,7 @@ end
 
 def print(students)
   count = 0
-  while count != students.count
+  until count == students.count
     puts "#{count+1} #{students[count][:name]} (#{students[count][:cohort]} cohort)"
     count += 1
   end
