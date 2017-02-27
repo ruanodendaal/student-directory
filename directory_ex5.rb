@@ -6,14 +6,13 @@ def input_students
   name = gets.chomp
   # while the name is not empty, repeat this code
   while !name.empty? do
-    # add the student hash to the array
-    #students << {name: name, cohort: :november}
     puts "What's their favourite hobbie?"
     hobby = gets.chomp
     puts "Where were they born?"
     birth_country = gets.chomp
     puts "How tall are they? (in cm)"
     height = gets.chomp
+    # add the student hash to the array
     students << {name: name, cohort: :november, hobby: hobby, birth_country: birth_country, height: height}
     # gets another name from the user
     puts "Next person:"
