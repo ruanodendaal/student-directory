@@ -21,15 +21,19 @@ def print_header
 end
 
 def print(students)
-  students.each_with_index { |student, i|
-    if student[:name] =~ /^j/i
-      puts "#{i+1} #{student[:name]} (#{student[:cohort]} cohort)"
-    end
+  students_specific_letter(students).each_with_index { |student, i|
+    puts "#{i+1} #{student[:name]} (#{student[:cohort]} cohort)"
+  }
+end
+
+def students_specific_letter(students)
+  students.select { |students|
+    students[:name] =~ /^j/i
   }
 end
 
 def print_footer(students)
-    puts "Overall, we have #{students.count} great students"
+    puts "Overall, we have #{students_specific_letter(students).count} great students"
 end
 
 students = input_students
