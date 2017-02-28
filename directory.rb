@@ -72,7 +72,4 @@ def print_footer
   end
 end
 
-@students = interactive_menu
-print_header
-print(@students)
-print_footer(@students)
+interactive_menu
