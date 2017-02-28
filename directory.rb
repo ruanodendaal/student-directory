@@ -2,7 +2,6 @@
 
 def interactive_menu
   loop do
-    # 1. print the menu and ask the user what to do
     print_menu
     # read input and pass to process() method
     process(STDIN.gets.chomp)
@@ -110,7 +109,9 @@ def try_load_students
   return if filename.nil? # get out of the method if it isn't given
   if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+    puts "------------".center(50)
+    puts "Loaded #{@students.count} from #{filename}".center(50)
+    puts "------------".center(50)
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
