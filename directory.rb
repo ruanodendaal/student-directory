@@ -115,6 +115,7 @@ def save_students
     csv_line = student_data.join(",")
     file.puts csv_line
   }
+  success("Saved")
   file.close
 end
 
@@ -125,7 +126,15 @@ def load_students(filename = "students.csv")
     @name, @cohort = line.chomp.split(',')
     add_students
   }
+  success("Loaded")
   file.close
+end
+
+
+def success(type)
+  puts "------------".center(50)
+  puts "SUCCESS: #{type} #{@students.count} students".center(50)
+  puts "------------".center(50)
 end
 
 
@@ -136,9 +145,7 @@ def try_load_students
     load_students(filename)
   elsif File.exists?(filename)
     load_students(filename)
-    puts "------------".center(50)
-    puts "Loaded #{@students.count} from #{filename}".center(50)
-    puts "------------".center(50)
+    success("Loaded")
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
