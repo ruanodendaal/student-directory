@@ -89,7 +89,7 @@ end
 def print_students_list
   if @students.count > 0
     @students.each_with_index { |student, i|
-      puts "#{i+1} #{student[:name]} (#{student[:cohort]} cohort)" }
+      puts "#{i+1}. #{student[:name]} (#{student[:cohort]} cohort)" }
   end
 end
 
@@ -131,8 +131,10 @@ end
 
 def try_load_students
   filename = ARGV.first # first argument from the command line
-  return if filename.nil? # get out of the method if it isn't given
-  if File.exists?(filename)
+  if filename.nil?
+    filename = "students.csv" # set to default if none given
+    load_students(filename)
+  elsif File.exists?(filename)
     load_students(filename)
     puts "------------".center(50)
     puts "Loaded #{@students.count} from #{filename}".center(50)
