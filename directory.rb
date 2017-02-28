@@ -3,8 +3,8 @@
 def interactive_menu
   loop do
     print_menu
-    # read input and pass to process() method
-    process(STDIN.gets.chomp)
+    # read input and pass to process_selection() method
+    process_selection(STDIN.gets.chomp)
   end
 end
 
@@ -24,7 +24,7 @@ def show_students
 end
 
 
-def process(selection)
+def process_selection(selection)
   case selection
   when "1"
     input_students
@@ -115,7 +115,7 @@ def save_students
     csv_line = student_data.join(",")
     file.puts csv_line
   }
-  success("Saved")
+  success_message("Saved")
   file.close
 end
 
@@ -126,12 +126,12 @@ def load_students(filename = "students.csv")
     @name, @cohort = line.chomp.split(',')
     add_students
   }
-  success("Loaded")
+  success_message("Loaded")
   file.close
 end
 
 
-def success(type)
+def success_message(type)
   puts "------------".center(50)
   puts "SUCCESS: #{type} #{@students.count} students".center(50)
   puts "------------".center(50)
@@ -145,7 +145,7 @@ def try_load_students
     load_students(filename)
   elsif File.exists?(filename)
     load_students(filename)
-    success("Loaded")
+    success_message("Loaded")
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
