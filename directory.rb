@@ -45,15 +45,38 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-  name = STDIN.gets.chomp
+  @name = STDIN.gets.chomp
   # while the name is not empty, repeat this code
-  while !name.empty? do
+  while !@name.empty? do
+    puts "Which cohort are they in?"
+    @cohort = STDIN.gets.chomp.to_sym
+
+    if @cohort.empty?
+      @cohort = "november".to_sym
+      puts "\"defaulted to #{cohort}\""
+    else
+      puts "#{@name} is in #{@cohort} cohort"
+      puts "Is this correct? (y / n)"
+      response = STDIN.gets.chomp.downcase
+        while response != "y"
+          puts "Sorry you didn't specify the cohort"
+          @cohort = STDIN.gets.chomp.to_sym
+          puts "#{@name} is in #{@cohort} cohort"
+          puts "Is this correct?"
+          response = STDIN.gets.chomp.downcase
+        end
+    end
     # add the student hash to the array
-    @students << {name: name, cohort: :november}
+    add_students
     puts "Now we have #{@students.count} students"
     # gets another name from the user
-    name = STDIN.gets.chomp
+    @name = STDIN.gets.chomp
   end
+end
+
+
+def add_students
+  @students << {name: @name, cohort: @cohort.to_sym}
 end
 
 
@@ -73,8 +96,10 @@ end
 
 def print_footer
   puts "------------".center(50)
-  if @students.count > 1
+  if @students.count >= 2
     puts "Overall, we have #{@students.count} great students".center(50)
+  elsif @students.count == 0
+    puts "There are no students enrolled".center(50)
   else
     puts "Overall, we have #{@students.count} great student".center(50)
   end
@@ -97,8 +122,8 @@ end
 def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each { |line|
-    name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    @name, @cohort = line.chomp.split(',')
+    add_students
   }
   file.close
 end
