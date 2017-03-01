@@ -132,12 +132,19 @@ def load_students(filename = "students.csv")
   filename = STDIN.gets.chomp
   filename == "y" ? filename = "students.csv" : filename
 
-  file = File.open(filename, "r").readlines.each { |line|
-    @name, @cohort = line.chomp.split(',')
-    add_students
-  }
-  success_message("Loaded")
-  file.close
+  if File.exists?(filename)
+    file = File.open(filename, "r").readlines.each { |line|
+      @name, @cohort = line.chomp.split(',')
+      add_students
+    }
+    success_message("Loaded")
+    file.close
+  else
+    puts "------------".center(50)
+    puts "No such file exists".center(50)
+    puts "------------".center(50)
+    interactive_menu
+  end
 end
 
 
