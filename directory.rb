@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = [] # an empty array accessible to all methods
 
 def interactive_menu
@@ -112,16 +114,14 @@ def save_students
   puts "(name inc. extension or 'y' for \"students.csv\"): "
   filename = STDIN.gets.chomp
   filename == "y" ? filename = "students.csv" : filename
-  # open file for writing
-  file = File.open(filename, "w")
-  # iterate over the array of students & save
-  @students.each { |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  
+  CSV.open(filename, "wb") { |csv|
+    # iterate over the array of students & save
+    @students.each { |student|
+      csv << [student[:name], student[:cohort]]
+    }
   }
   success_message("Saved")
-  file.close
 end
 
 
@@ -133,12 +133,11 @@ def load_students(filename = "students.csv")
   filename == "y" ? filename = "students.csv" : filename
 
   if File.exists?(filename)
-    file = File.open(filename, "r").readlines.each { |line|
-      @name, @cohort = line.chomp.split(',')
+    CSV.foreach(filename) { |row|
+      @name, @cohort = row.join(',').split(',')
       add_students
     }
     success_message("Loaded")
-    file.close
   else
     puts "------------".center(50)
     puts "No such file exists".center(50)
