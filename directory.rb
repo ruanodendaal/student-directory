@@ -11,8 +11,8 @@ end
 def print_menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list"
+  puts "4. Load the list"
   puts "9. Exit"
 end
 
@@ -107,8 +107,13 @@ end
 
 
 def save_students
+  puts "What name would you like to give this file?"
+  puts "Or would you like to save it in \"students.csv\"?"
+  puts "(name inc. extension or 'y' for \"students.csv\"): "
+  filename = STDIN.gets.chomp
+  filename == "y" ? filename = "students.csv" : filename
   # open file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # iterate over the array of students & save
   @students.each { |student|
     student_data = [student[:name], student[:cohort]]
@@ -120,7 +125,13 @@ def save_students
 end
 
 
-def load_students(filename = "students.csv")
+def load_students(filename)
+  puts "Which file should we load?"
+  puts "Or would you like to load \"students.csv\"?"
+  puts "(name inc. extension or 'y' for \"students.csv\"): "
+  filename = STDIN.gets.chomp
+  filename == "y" ? filename = "students.csv" : filename
+  
   file = File.open(filename, "r")
   file.readlines.each { |line|
     @name, @cohort = line.chomp.split(',')
