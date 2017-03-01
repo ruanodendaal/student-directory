@@ -125,15 +125,14 @@ def save_students
 end
 
 
-def load_students(filename)
+def load_students(filename = "students.csv")
   puts "Which file should we load?"
   puts "Or would you like to load \"students.csv\"?"
   puts "(name inc. extension or 'y' for \"students.csv\"): "
   filename = STDIN.gets.chomp
   filename == "y" ? filename = "students.csv" : filename
-  
-  file = File.open(filename, "r")
-  file.readlines.each { |line|
+
+  file = File.open(filename, "r").readlines.each { |line|
     @name, @cohort = line.chomp.split(',')
     add_students
   }
